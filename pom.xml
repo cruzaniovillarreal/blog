@@ -11,7 +11,7 @@
     <groupId>com.codeup</groupId>
     <artifactId>initalspring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>initalspring</name>
+    <name>blog</name>
     <description>first test for creating spring project</description>
 
     <properties>
