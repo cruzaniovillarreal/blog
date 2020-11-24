@@ -10,19 +10,19 @@ public class MathController {
     @GetMapping("/add/{num}/and/{num2}")
     @ResponseBody
     public int addition(@PathVariable int num, @PathVariable int num2) {
-        return num + num2;
+        return num+num2;
     };
 
     @GetMapping("/subtract/{num}/from/{num2}")
     @ResponseBody
     public int subtraction(@PathVariable int num, @PathVariable int num2) {
-        return num - num2;
+        return num-num2;
     };
 
     @GetMapping("/multiply/{num}/and/{num2}")
     @ResponseBody
     public int multiply(@PathVariable int num, @PathVariable int num2) {
-        return num * num2;
+        return num*num2;
     };
 
     @GetMapping("/divide/{num}/by/{num2}")
