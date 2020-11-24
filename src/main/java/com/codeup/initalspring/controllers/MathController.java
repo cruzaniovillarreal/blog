@@ -1,4 +1,4 @@
-package com.codeup.initalspring;
+package com.codeup.initalspring.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +30,6 @@ public class MathController {
     public int divide(@PathVariable int num, @PathVariable int num2) {
         return num/num2;
     };
+
 
 }
