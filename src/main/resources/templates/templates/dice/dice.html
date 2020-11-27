@@ -14,20 +14,24 @@
 <a href="/roll-dice/5">5</a>
 <a href="/roll-dice/6">6</a>
 
-<div>
-    <h2>
-        Our Roll: <span th:text="${roll}"></span>
-    </h2>
+
+<div  th:if="${roll}">
+    <div>
+        <h2>
+            Our Roll: <span th:text="${roll}"></span>
+        </h2>
+    </div>
+
+    <div>
+        <h2>
+            Your Guess: <span th:text="${guess}"></span>
+        </h2>
+    </div>
+
+    <div th:if="${match}">
+        <h2>Well Done! You guessed correctly!</h2>
+    </div>
 </div>
 
-<div>
-    <h2>
-        Your Guess: <span th:text="${guess}"></span>
-    </h2>
-</div>
-
-<div th:if="${match}">
-    <h2>Well Done! You guessed correctly!</h2>
-</div>
 </body>
 </html>
