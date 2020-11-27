@@ -21,14 +21,14 @@ public class PostController {
         posts.add(new Post("2nd Post", "Body of second post"));
         posts.add(new Post("3rd Post", "Body of third post"));
         model.addAttribute("posts", posts);
-        return "/posts/index";
+        return "templates/posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String individualPost(@PathVariable int id, Model model) {
         Post post = new Post("Individual Post", "This is the body of the individual post");
         model.addAttribute("post", post);
-        return "/posts/show";
+        return "templates/posts/show";
     }
 
     @GetMapping("/posts/create")

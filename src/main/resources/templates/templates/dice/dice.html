@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dice</title>
+</head>
+<body>
+<h1>Welcome to DICE.</h1>
+<h4>Click a link below to see if you can match our roll:</h4>
+<a href="/roll-dice/1">1</a>
+<a href="/roll-dice/2">2</a>
+<a href="/roll-dice/3">3</a>
+<a href="/roll-dice/4">4</a>
+<a href="/roll-dice/5">5</a>
+<a href="/roll-dice/6">6</a>
+
+<div>
+    <h2>
+        Our Roll: <span th:text="${roll}"></span>
+    </h2>
+</div>
+
+<div>
+    <h2>
+        Your Guess: <span th:text="${guess}"></span>
+    </h2>
+</div>
+
+<div th:if="${match}">
+    <h2>Well Done! You guessed correctly!</h2>
+</div>
+</body>
+</html>
