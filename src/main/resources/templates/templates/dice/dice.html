@@ -32,6 +32,12 @@
         <h2>Well Done! You guessed correctly!</h2>
     </div>
 </div>
+<div th:each="dice : ${dice}">
+    <h2>Dice: <span th:text="${dice}"></span></h2>
+</div>
+<div th:if="${num != null}">
+    <h2>Dice matched: <span th:text="${correct}"></span> </h2>
+</div>
 
 </body>
 </html>
