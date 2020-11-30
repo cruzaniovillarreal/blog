@@ -7,7 +7,7 @@
 <body>
 <h1>Welcome to DICE.</h1>
 <h4>Click a link below to see if you can match our roll:</h4>
-<a href="/roll-dice/1">1</a>
+<a th:href="@{/roll-dice/1}">1</a>
 <a href="/roll-dice/2">2</a>
 <a href="/roll-dice/3">3</a>
 <a href="/roll-dice/4">4</a>
@@ -31,9 +31,12 @@
     <div th:if="${match}">
         <h2>Well Done! You guessed correctly!</h2>
     </div>
+    <div th:if="${match != null && !match}">
+        <h2>You did not guess correctly!</h2>
+    </div>
 </div>
 <div th:each="dice : ${dice}">
-    <h2>Dice: <span th:text="${dice}"></span></h2>
+    <h2>Dice: <span th:text="${dice}"/></h2>
 </div>
 <div th:if="${num != null}">
     <h2>Dice matched: <span th:text="${correct}"></span> </h2>

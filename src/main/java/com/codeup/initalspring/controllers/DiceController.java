@@ -28,12 +28,9 @@ public class DiceController {
         model.addAttribute("dice", dice);
 
         int roll = (int) ((Math.random() * (7 - 1)) + 1);
-        if (roll == num) {
-            model.addAttribute("match", true);
-        } else {
-            model.addAttribute("match", false);
-        }
         model.addAttribute("roll", roll);
+        model.addAttribute("match", roll == num);
+
 
         int count = 0;
         for(int die : dice) {

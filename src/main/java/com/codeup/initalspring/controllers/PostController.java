@@ -15,11 +15,11 @@ import java.util.List;
 
 @Controller
 class PostController {
-    private final PostRepository postDao;
-
-    public PostController(PostRepository postDao) {
-        this.postDao = postDao;
-    }
+//    private final PostRepository postDao;
+//
+//    public PostController(PostRepository postDao) {
+//        this.postDao = postDao;
+//    }
 
     @GetMapping("/posts")
     public String posts(Model model) {
