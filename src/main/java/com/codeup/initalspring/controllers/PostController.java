@@ -1,6 +1,8 @@
 package com.codeup.initalspring.controllers;
 
 import models.Post;
+import models.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class PostController {
+class PostController {
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
 
     @GetMapping("/posts")
     public String posts(Model model) {
@@ -21,6 +28,7 @@ public class PostController {
         posts.add(new Post("2nd Post", "Body of second post"));
         posts.add(new Post("3rd Post", "Body of third post"));
         model.addAttribute("posts", posts);
+
         return "templates/posts/index";
     }
 
@@ -40,6 +48,18 @@ public class PostController {
     @PostMapping("/posts/create")
     @ResponseBody
     public String submitPost() {
+        return "This will create the post";
+    }
+
+    @PostMapping("/posts/update")
+    @ResponseBody
+    public String updatePost() {
+        return "This will create the post";
+    }
+
+    @PostMapping("/posts/delete")
+    @ResponseBody
+    public String deletePost() {
         return "This will create the post";
     }
 }
