@@ -1,4 +1,4 @@
-package models;
+package com.codeup.initalspring.models;
 
 import javax.persistence.*;
 
@@ -14,6 +14,9 @@ public class Post {
 
     @Column(nullable = false)
     private String body;
+
+    @OnetoOne
+    private User owner;
 
     public Post() {}
 

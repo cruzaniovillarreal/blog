@@ -1,34 +1,26 @@
 package com.codeup.initalspring.controllers;
 
-import models.Post;
-import models.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codeup.initalspring.models.Post;
+import com.codeup.initalspring.models.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 class PostController {
-//    private final PostRepository postDao;
-//
-//    public PostController(PostRepository postDao) {
-//        this.postDao = postDao;
-//    }
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
 
     @GetMapping("/posts")
     public String posts(Model model) {
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post("1st Post", "Body of first post"));
-        posts.add(new Post("2nd Post", "Body of second post"));
-        posts.add(new Post("3rd Post", "Body of third post"));
-        model.addAttribute("posts", posts);
-
+        model.addAttribute("posts", postDao.findAll());
         return "templates/posts/index";
     }
 
@@ -40,26 +32,28 @@ class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String createPost() {
-        return "This page will display a form to create a post";
+        return "templates/posts/new";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String submitPost() {
-        return "This will create the post";
+    public String submitPost(@RequestParam(name = "title") String title,
+                             @RequestParam(name = "description") String desc) {
+        Post createdPost = new Post(title, desc);
+        Post dbPost = postDao.save(createdPost);
+        return "redirect:/posts";
     }
 
     @PostMapping("/posts/update")
     @ResponseBody
     public String updatePost() {
-        return "This will create the post";
+        return "This will update the post";
     }
 
     @PostMapping("/posts/delete")
     @ResponseBody
     public String deletePost() {
+        postDao.deleteById((long) 2);
         return "This will create the post";
     }
 }
