@@ -29,10 +29,9 @@ class PostController {
         return "templates/posts/index";
     }
 
-    @GetMapping("/posts/{id}")
-    public String individualPost(@PathVariable int id, Model model) {
-        User user = userDao.getOne(1L);
-        Post post = new Post( "Individual Post", "This is the body of the individual post", user);
+    @GetMapping("/posts/")
+    public String individualPost(@RequestParam(name = "id") int id, Model model) {
+        Post post = postDao.getOne((long) id);
         model.addAttribute("post", post);
         return "templates/posts/show";
     }
@@ -52,15 +51,18 @@ class PostController {
     }
 
     @PostMapping("/posts/update")
-    @ResponseBody
-    public String updatePost() {
-        return "This will update the post";
+    public String updatePost(@RequestParam(name = "id") long id,
+                             @RequestParam(name = "title") String title,
+                             @RequestParam(name = "description") String desc) {
+        User user = userDao.getOne(1L);
+        Post updatedPost = new Post(id, title, desc, user);
+        Post dbPost = postDao.save(updatedPost);
+        return "redirect:/posts/?id="+id;
     }
 
     @PostMapping("/posts/delete")
-    @ResponseBody
-    public String deletePost() {
-        postDao.deleteById((long) 2);
-        return "This will delete the post";
+    public String deletePost(@RequestParam(name = "id") int id) {
+        postDao.deleteById((long) id);
+        return "redirect:/posts";
     }
 }

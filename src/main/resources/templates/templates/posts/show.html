@@ -8,9 +8,9 @@
 <header th:replace="templates/partials/header :: header('View One Post!')"></header>
 
 <main class="text-center">
-    <h1>One post</h1>
     <h2 th:text="${post.getTitle()}"/>
     <p th:text="${post.getBody()}"/>
+    <p>Created By: <span th:text="${post.getOwner().getEmail()}"/></p>
 </main>
 
 
