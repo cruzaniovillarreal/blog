@@ -15,8 +15,12 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-    @OnetoOne
+    @OneToOne
     private User owner;
+
+    @ManyToOne
+    @JoinColumn (name="user_id")
+    private Post post;
 
     public Post() {}
 
@@ -26,9 +30,23 @@ public class Post {
         this.body = body;
     }
 
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.owner = user;
+    }
+
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public Post getPost() {
+        return post;
     }
 
     public long getId() {
@@ -53,5 +71,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
