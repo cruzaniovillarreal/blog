@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="templates/partials/head :: head('All Posts')">
+<head th:replace="partials/head :: head('All Posts')">
     <meta charset="UTF-8">
 
 </head>
 <body>
-<nav th:replace="templates/partials/navbar :: nav"></nav>
-<header th:replace="templates/partials/header :: header('Viewing All Posts!')"></header>
+<nav th:replace="partials/navbar :: nav"></nav>
+<header th:replace="partials/header :: header('Viewing All Posts!')"></header>
 
-<main class="text-center">
-    <div th:each="post : ${posts}">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="../img/post.png" alt="Card image cap">
+<main class="container">
+    <div th:each="post : ${posts}" class="m-5">
+        <div class="card mx-auto" style="width: 18rem;">
+            <img class="card-img-top" src="post.png" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title" th:text="${post.getTitle()}"></h5>
                 <p class="card-text" th:text="${post.getBody()}"></p>
-                <a th:href="@{/posts/(id=${post.id})}" class="btn btn-primary">Go To Post</a>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Edit
-                </button>
-                <form th:action="@{/posts/delete/(id=${post.id})}" method="post">
-                    <button type="submit" class="btn btn-alert">Delete</button>
-                </form>
+                <div class="row justify-content-around">
+                    <a th:href="@{/posts/(id=${post.id})}" class="btn btn-primary">View</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Edit
+                    </button>
+                    <form th:action="@{/posts/delete/(id=${post.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
 
 
                 <!-- Modal -->
@@ -36,7 +39,7 @@
                                 </button>
                             </div>
                             <form th:action="@{/posts/update/(id=${post.id})}" method="post">
-                                <div class="modal-body">
+                                <div class="modal-body text-left">
                                     <div>
                                         <label for="title">Title: </label>
                                         <input id="title" name="title" th:value="${post.getTitle()}">
@@ -47,17 +50,16 @@
                                     </div>
                                     <div>
                                         <label for="created_by">Created By: </label>
-                                        <input id="created_by" name="title" th:value="${post.getOwner().getEmail()}" readonly>
+                                        <input id="created_by" name="created_by" th:value="${post.getOwner().getEmail()}" readonly>
                                     </div>
                                     <div>
                                         <label for="updated_by">Updated By: </label>
                                         <input id="updated_by" name="updated_by" value="LoggedInAdmin" readonly>
                                     </div>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-success">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -70,7 +72,7 @@
 </main>
 
 
-<footer th:replace="templates/partials/partials :: footer"></footer>
-<th:block th:include="templates/partials/scripts :: scripts"></th:block>
+<footer th:replace="partials/partials :: footer"></footer>
+<th:block th:include="partials/scripts :: scripts"></th:block>
 </body>
 </html>

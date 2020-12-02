@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="templates/partials/head :: head('Creating New Post')">
+<head th:replace="partials/head :: head('Creating New Post')">
     <meta charset="UTF-8">
 </head>
 <body>
-<nav th:replace="templates/partials/navbar :: nav"></nav>
-<header th:replace="templates/partials/header :: header('View One Post!')"></header>
+<nav th:replace="partials/navbar :: nav"></nav>
+<header th:replace="partials/header :: header('View One Post!')"></header>
 
 <main class="text-center">
     <form action="/posts/create" method="post">
@@ -21,7 +21,7 @@
     </form>
 </main>
 
-<footer th:replace="templates/partials/partials :: footer"></footer>
-<th:block th:include="templates/partials/scripts :: scripts"></th:block>
+<footer th:replace="partials/partials :: footer"></footer>
+<th:block th:include="partials/scripts :: scripts"></th:block>
 </body>
 </html>

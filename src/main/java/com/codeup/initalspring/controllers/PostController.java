@@ -26,19 +26,19 @@ class PostController {
     @GetMapping("/posts")
     public String posts(Model model) {
         model.addAttribute("posts", postDao.findAll());
-        return "templates/posts/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/")
     public String individualPost(@RequestParam(name = "id") int id, Model model) {
         Post post = postDao.getOne((long) id);
         model.addAttribute("post", post);
-        return "templates/posts/show";
+        return "posts/show";
     }
 
     @GetMapping("/posts/create")
     public String createPost() {
-        return "templates/posts/new";
+        return "posts/new";
     }
 
     @PostMapping("/posts/create")
@@ -54,8 +54,9 @@ class PostController {
     public String updatePost(@RequestParam(name = "id") long id,
                              @RequestParam(name = "title") String title,
                              @RequestParam(name = "description") String desc) {
-        User user = userDao.getOne(1L);
-        Post updatedPost = new Post(id, title, desc, user);
+        Post updatedPost = postDao.getOne(id);
+        updatedPost.setTitle(title);
+        updatedPost.setBody(desc);
         Post dbPost = postDao.save(updatedPost);
         return "redirect:/posts/?id="+id;
     }
