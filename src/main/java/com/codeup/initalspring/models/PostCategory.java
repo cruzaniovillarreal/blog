@@ -18,7 +18,6 @@ public class PostCategory {
 
     public PostCategory() {}
 
-
     //READ
     public PostCategory(long id, String name, List<Post> posts) {
         this.id = id;

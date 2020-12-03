@@ -3,7 +3,7 @@ package com.codeup.initalspring.models;
 import jdk.jfr.Category;
 
 import javax.persistence.*;
-import java.awt.*;
+import java.util.List;
 
 @Entity
 @Table(name="posts")
@@ -26,7 +26,7 @@ public class Post {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "ads_categories",
+            name = "posts_categories",
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "category_id")}
     )
@@ -49,6 +49,11 @@ public class Post {
     }
 
     //CREATE
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.owner = user;
+    }
     public Post(String title, String body, User user, List<PostImage> images) {
         this.title = title;
         this.body = body;
