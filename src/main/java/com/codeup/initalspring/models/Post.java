@@ -1,6 +1,9 @@
 package com.codeup.initalspring.models;
 
+import jdk.jfr.Category;
+
 import javax.persistence.*;
+import java.awt.*;
 
 @Entity
 @Table(name="posts")
@@ -18,29 +21,39 @@ public class Post {
     @OneToOne
     private User owner;
 
-    @ManyToOne
-    @JoinColumn (name="user_id")
-    private Post post;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<PostImage> images;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "ads_categories",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private List<PostCategory> categories;
+
+//    @ManyToOne
+//    @JoinColumn (name="user_id")
+
+//    private Post post;
 
     public Post() {}
 
-    public Post(long id, String title, String body, User owner) {
+    //READ
+    public Post(long id, String title, String body, User owner, List<PostImage> images) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.owner = owner;
+        this.images = images;
     }
 
-    public Post(long id, String title, String body) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-    }
-
-    public Post(String title, String body, User user) {
+    //CREATE
+    public Post(String title, String body, User user, List<PostImage> images) {
         this.title = title;
         this.body = body;
         this.owner = user;
+        this.images = images;
     }
 
     public Post(String title, String body) {
@@ -50,10 +63,6 @@ public class Post {
 
     public User getOwner() {
         return owner;
-    }
-
-    public Post getPost() {
-        return post;
     }
 
     public long getId() {
@@ -84,7 +93,20 @@ public class Post {
         this.owner = owner;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public List<PostImage> getImages() {
+        return images;
     }
+
+    public void setImages(List<PostImage> images) {
+        this.images = images;
+    }
+
+    public List<PostCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<PostCategory> categories) {
+        this.categories = categories;
+    }
+
 }
