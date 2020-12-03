@@ -31,7 +31,6 @@ public class PostImage {
     public PostImage(String path, Post post) {
         this.path = path;
         this.post = post;
-
     }
 
     public long getId() {
