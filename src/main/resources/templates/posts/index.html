@@ -14,7 +14,6 @@
             <div class="row justify-content-center">
                 <img th:each="image : ${post.getImages()}" class="m-3" th:src="${image.getPath()}" alt="Photo Unavailable" style="max-width: 200px; max-height: 200px">
             </div>
-<!--            <img class="card-img-top" src="post.png" alt="Card image cap">-->
             <div class="card-body">
                 <h5 class="card-title" th:text="${post.getTitle()}"></h5>
                 <p class="card-text" th:text="${post.getBody()}"></p>
@@ -27,8 +26,6 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
-
-
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"

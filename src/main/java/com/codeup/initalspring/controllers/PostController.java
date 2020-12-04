@@ -1,6 +1,7 @@
 package com.codeup.initalspring.controllers;
 
 import com.codeup.initalspring.models.*;
+import com.codeup.initalspring.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,13 @@ class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
     private final ImageRepository imageDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao, ImageRepository imageDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, ImageRepository imageDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
         this.imageDao = imageDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -53,6 +56,8 @@ class PostController {
         PostImage dbImageOne = imageDao.save(imageOne);
         PostImage dbImageTwo = imageDao.save(imageTwo);
         PostImage dbImageThree = imageDao.save(imageThree);
+        emailService.prepareAndSend(dbPost, "Well Done!", "You have successfully created a new post! The ID of your post is "+dbPost.getId()+".");
+
         return "redirect:/posts";
     }
 
