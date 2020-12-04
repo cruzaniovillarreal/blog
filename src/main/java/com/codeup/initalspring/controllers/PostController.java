@@ -36,23 +36,22 @@ class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String createPost() {
+    public String createPost(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/new";
     }
 
     @PostMapping("/posts/create")
-    public String submitPost(@RequestParam(name = "title") String title,
-                             @RequestParam(name = "description") String desc) {
+    public String submitPost(@ModelAttribute Post post) {
         User user = userDao.getOne(1L);
-        Post createdPost = new Post(title, desc, user);
-        PostImage imageOne = new PostImage("https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", createdPost);
-        PostImage imageTwo = new PostImage("https://static.toiimg.com/photo/msid-75141327,width-96,height-65.cms", createdPost);
-        PostImage imageThree = new PostImage("https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2020%2F01%2Fhawaii-december-EVRYMONTH1019.jpg&q=85", createdPost);
-        Post dbPost = postDao.save(createdPost);
+        post.setOwner(user);
+        PostImage imageOne = new PostImage("https://picsum.photos/200", post);
+        PostImage imageTwo = new PostImage("https://picsum.photos/200", post);
+        PostImage imageThree = new PostImage("https://picsum.photos/200", post);
+        Post dbPost = postDao.save(post);
         PostImage dbImageOne = imageDao.save(imageOne);
         PostImage dbImageTwo = imageDao.save(imageTwo);
         PostImage dbImageThree = imageDao.save(imageThree);
-
         return "redirect:/posts";
     }
 

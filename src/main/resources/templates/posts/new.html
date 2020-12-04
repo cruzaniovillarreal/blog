@@ -8,14 +8,14 @@
 <header th:replace="partials/header :: header('View One Post!')"></header>
 
 <main class="text-center">
-    <form action="/posts/create" method="post">
+    <form action="/posts/create" method="post" th:object="${post}">
         <div>
             <label for="title">Title: </label>
-            <input id="title" name="title" placeholder="Your title...">
+            <input id="title" th:field="*{title}" placeholder="Your title...">
         </div>
         <div>
             <label for="desc">Body: </label>
-            <textarea id="desc" name="description" placeholder="What you have to say..."></textarea>
+            <textarea id="desc" th:field="*{body}" placeholder="What you have to say..."></textarea>
         </div>
         <button type="submit">Submit</button>
     </form>
