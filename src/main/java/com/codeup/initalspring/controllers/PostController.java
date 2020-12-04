@@ -24,12 +24,13 @@ class PostController {
     @GetMapping("/posts")
     public String posts(Model model) {
         model.addAttribute("posts", postDao.findAll());
+
         return "posts/index";
     }
 
-    @GetMapping("/posts/")
-    public String individualPost(@RequestParam(name = "id") int id, Model model) {
-        Post post = postDao.getOne((long) id);
+    @GetMapping("/posts/{id}")
+    public String individualPost(@PathVariable long id, Model model) {
+        Post post = postDao.getOne(id);
         model.addAttribute("post", post);
         model.addAttribute("images", post.getImages());
         return "posts/show";
@@ -55,6 +56,20 @@ class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/posts/{id}/edit")
+    public String editPostPage(@PathVariable long id, Model model) {
+        Post post = postDao.getOne(id);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String submitEdit(@PathVariable long id, @ModelAttribute Post post) {
+        post.setOwner(userDao.getOne(1L));
+        Post dbPost = postDao.save(post);
+        return "redirect:/posts/";
+    }
+
     @PostMapping("/posts/update")
     public String updatePost(@RequestParam(name = "id") long id,
                              @RequestParam(name = "title") String title,
@@ -63,7 +78,7 @@ class PostController {
         updatedPost.setTitle(title);
         updatedPost.setBody(desc);
         Post dbPost = postDao.save(updatedPost);
-        return "redirect:/posts/?id="+id;
+        return "redirect:/posts/?id=" + id;
     }
 
     @PostMapping("/posts/delete")

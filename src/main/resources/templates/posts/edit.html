@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head('One Post')">
+    <meta charset="UTF-8">
+</head>
+<body>
+<nav th:replace="partials/navbar :: nav"></nav>
+<header th:replace="partials/header :: header('View One Post!')"></header>
+<main class="container">
+    <div class="card" style="width: 100%;">
+        <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="post" th:object="${post}">
+            <img class="card-img-top m-3" th:each="image : ${post.getImages()}" th:src="${image.getPath()}" alt="Photo Unavailable" style="max-width: 200px; max-height: 200px">
+            <div class="card-body">
+                <div>
+                    <label for="title">Title:</label>
+                    <br>
+                    <input class="card-title" id="title" th:field="*{title}" style="width: 100%"></input>
+                </div>
+                <div>
+                    <label for="body">Body:</label>
+                    <br>
+                    <textarea class="card-text" id="body" th:field="*{body}" style="width: 100%; height: 200px"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+
+
+<footer th:replace="partials/partials :: footer"></footer>
+<th:block th:replace="partials/scripts :: scripts"></th:block>
+</body>
+</html>
