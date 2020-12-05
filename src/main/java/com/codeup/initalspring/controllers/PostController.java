@@ -1,14 +1,13 @@
 package com.codeup.initalspring.controllers;
 
 import com.codeup.initalspring.models.*;
+import com.codeup.initalspring.repositories.ImageRepository;
+import com.codeup.initalspring.repositories.PostRepository;
+import com.codeup.initalspring.repositories.UserRepository;
 import com.codeup.initalspring.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 class PostController {
@@ -27,8 +26,13 @@ class PostController {
     @GetMapping("/posts")
     public String posts(Model model) {
         model.addAttribute("posts", postDao.findAll());
-
         return "posts/index";
+    }
+
+    @GetMapping("/posts/search")
+    public String postSearch(@RequestParam(name = "search") String search, Model model) {
+        model.addAttribute("searchedPosts", postDao.findPostsByTitleContainingOrBodyContaining(search));
+        return "posts/search";
     }
 
     @GetMapping("/posts/{id}")

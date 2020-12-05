@@ -9,13 +9,19 @@
 <nav th:fragment="nav">
     <ul class="nav bg-dark align-items-center">
         <li class="nav-item">
-            <a id="blog" class="nav-link text-light" th:href="@{/}">Blog</a>
+            <a id="blog" class="nav-link text-light" th:href="@{/posts}">Blog</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" th:href="@{/posts}">Posts</a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link text-light" th:href="@{/posts}">Posts</a>-->
+<!--        </li>-->
         <li class="nav-item">
             <a class="nav-link text-light" th:href="@{/posts/create}">Create Posts</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" th:action="@{/posts/search}">
+                <input class="form-control ml-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </li>
         <li class="nav-item ml-auto">
             <a class="nav-link text-light" th:href="@{/register}">Register</a>
