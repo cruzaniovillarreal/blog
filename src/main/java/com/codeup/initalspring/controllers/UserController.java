@@ -36,6 +36,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String viewProfile() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == null) {
             return "redirect:/login";
         } else {
