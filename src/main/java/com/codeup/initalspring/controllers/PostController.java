@@ -5,6 +5,7 @@ import com.codeup.initalspring.repositories.ImageRepository;
 import com.codeup.initalspring.repositories.PostRepository;
 import com.codeup.initalspring.repositories.UserRepository;
 import com.codeup.initalspring.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +52,8 @@ class PostController {
 
     @PostMapping("/posts/create")
     public String submitPost(@ModelAttribute Post post) {
-        User user = userDao.getOne(1L);
-        post.setOwner(user);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setOwner(loggedInUser);
         PostImage imageOne = new PostImage("https://picsum.photos/200", post);
         PostImage imageTwo = new PostImage("https://picsum.photos/200", post);
         PostImage imageThree = new PostImage("https://picsum.photos/200", post);
