@@ -1,6 +1,7 @@
 package com.codeup.initalspring.repositories;
 
 import com.codeup.initalspring.models.Post;
+import com.codeup.initalspring.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +14,5 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("FROM Post p WHERE p.title LIKE %:search% OR p.body LIKE %:search%")
     List<Post> findPostsByTitleContainingOrBodyContaining(@Param("search") String search);
+    List<Post> findPostsByOwnerEquals(User user);
 }

@@ -1,6 +1,7 @@
 package com.codeup.initalspring.controllers;
 
 import com.codeup.initalspring.models.User;
+import com.codeup.initalspring.repositories.PostRepository;
 import com.codeup.initalspring.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     private UserRepository users;
     private PasswordEncoder passwordEncoder;
+    private PostRepository postDao;
 
-    public UserController(UserRepository users, PasswordEncoder passwordEncoder) {
+    public UserController(UserRepository users, PasswordEncoder passwordEncoder, PostRepository postDao) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
+        this.postDao = postDao;
     }
 
     @GetMapping("/sign-up")
@@ -35,13 +38,8 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String viewProfile() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == null) {
-            return "redirect:/login";
-        } else {
+    public String viewProfile(Model model) {
+        model.addAttribute("posts", postDao.findPostsByOwnerEquals((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
             return "users/profile";
-        }
-
     }
 }
