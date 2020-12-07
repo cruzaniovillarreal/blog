@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>Sign up</title>
+<head th:replace="partials/head :: head('Sign Up')">
+    <meta charset="UTF-8">
 </head>
 <body>
-<h1>Create an account</h1>
-<form th:action="@{/sign-up}" method="POST" th:object="${user}">
-    <label for="username">Username</label>
-    <input id="username" th:field="*{username}" />
+<nav th:replace="partials/navbar :: nav"></nav>
+<header th:replace="partials/header :: header('Show Off Your World!')"></header>
 
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
+<main class="my-5">
+    <h1>New </h1>
+    <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="justify-content-center">
+        <div>
+            <label for="username">Username</label>
+            <input id="username" th:field="*{username}"/>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input id="password" type="password" th:field="*{password}"/>
+        </div>
+        <input value="Sign me up!" type="submit"/>
+    </form>
+</main>
 
-    <label for="password">Password</label>
-    <input id="password" type="password" th:field="*{password}" />
-
-    <input value="Sign me up!" type="submit" />
-</form>
+<footer th:replace="partials/partials :: footer"></footer>
+<th:block th:include="partials/scripts :: scripts"></th:block>
 </body>
 </html>

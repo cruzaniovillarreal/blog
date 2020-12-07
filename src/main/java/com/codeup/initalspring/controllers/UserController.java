@@ -2,6 +2,7 @@ package com.codeup.initalspring.controllers;
 
 import com.codeup.initalspring.models.User;
 import com.codeup.initalspring.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,11 @@ public class UserController {
 
     @GetMapping("/profile")
     public String viewProfile() {
-        return "users/profile";
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == null) {
+            return "redirect:/login";
+        } else {
+            return "users/profile";
+        }
+
     }
 }
