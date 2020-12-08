@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
@@ -68,8 +69,6 @@
             <version>3.0.4.RELEASE</version>
         </dependency>
     </dependencies>
-
-
 
     <build>
         <plugins>
