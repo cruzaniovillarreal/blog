@@ -5,7 +5,7 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: nav"></nav>
-<header th:replace="partials/header :: header('Sign In!')"></header>
+<header th:replace="partials/header :: header('')"></header>
 
 
 
@@ -17,7 +17,7 @@
             <p class="text-danger">Invalid Username and Password.</p>
         </div>
         <div th:if="${param.logout}" class="text-center">
-            <p class="text-success">You have been logged out.</p>
+            <p class="text-success">You have successfully logged out.</p>
         </div>
         <form th:action="@{/login}" method="post">
             <div class="form-group">
