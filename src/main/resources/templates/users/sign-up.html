@@ -7,7 +7,7 @@
 <nav th:replace="partials/navbar :: nav"></nav>
 <header th:replace="partials/header :: header('Show Off Your World!')"></header>
 
-<div class="card mx-auto my-5" style="width: 50%">
+<div class="card mx-auto my-5" style="width: 23rem">
     <article class="card-body">
         <h4 class="card-title text-center mb-4 mt-1">Create Account</h4>
         <hr>
@@ -16,6 +16,9 @@
         </div>
         <div th:if="${param.logout}" class="text-center">
             <p class="text-success">You have successfully logged out.</p>
+        </div>
+        <div th:if="${param.invalidpw}" class="text-center">
+            <p class="text-danger">Password mismatch</p>
         </div>
         <form th:action="@{/sign-up}" method="post" th:object="${user}">
             <div class="form-group">

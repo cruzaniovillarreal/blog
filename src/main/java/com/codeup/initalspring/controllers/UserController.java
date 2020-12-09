@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -30,11 +31,18 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User user){
-        String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
-        users.save(user);
-        return "redirect:/login";
+    public String saveUser(@RequestParam(name = "password") String password,
+                           @RequestParam(name = "confirmPassword") String confirmPassword,
+                           @ModelAttribute User user){
+        if (!password.equals(confirmPassword)) {
+            return "redirect:/sign-up?invalidpw";
+        } else {
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
+            users.save(user);
+            return "redirect:/login";
+        }
+
     }
 
     @GetMapping("/profile")
