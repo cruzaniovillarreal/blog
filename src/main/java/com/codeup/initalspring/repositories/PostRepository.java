@@ -15,4 +15,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("FROM Post p WHERE p.title LIKE %:search% OR p.body LIKE %:search%")
     List<Post> findPostsByTitleContainingOrBodyContaining(@Param("search") String search);
     List<Post> findPostsByOwnerEquals(User user);
+    Post findByTitle(String title);
 }
